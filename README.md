@@ -6,7 +6,10 @@ Currently using Python 2.7 with PySNMP library & Docker for managing virtual ins
 ## Quick-Start
 
 Building Docker Image: docker build --no-cache -t "cs7012"
-Running Docker Image: docker run -it --rm --name "cs7012-X" cs7012 (where 'X' is some unique identifier)
+
+Running Docker Image: docker run -it --rm --name "cs7012-X" cs7012
+
+(where 'X' is some unique identifier)
 
 # TODOs
 
