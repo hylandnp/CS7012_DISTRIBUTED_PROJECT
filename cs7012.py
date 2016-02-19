@@ -1,6 +1,5 @@
  #!/usr/bin/env
 import pysnmp
 
-
-print "Hello World!" 
+print "Hello CS7012!" 
 
