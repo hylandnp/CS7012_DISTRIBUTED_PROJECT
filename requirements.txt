@@ -1,1 +1,1 @@
-pysnmp
+py-snmp
