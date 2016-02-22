@@ -1,1 +1,1 @@
-import map_reduce.__init__
+import src.map_reduce.__init__
