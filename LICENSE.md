@@ -1,6 +1,6 @@
-The MIT License (MIT)
+# The MIT License (MIT)
 
-Copyright © 2016 Neil Hyland, Huo Da, Fintan Halpenny and Harpreet Singh
+## Copyright © 2016 Neil Hyland, Huo Da, Fintan Halpenny and Harpreet Singh
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
