@@ -1,20 +1,23 @@
-FROM frolvlad/alpine-python2
+from pythonsnmp
 
-# Install PySNMP using image package manager instead of PIP:
-RUN apk add py-snmp --update-cache --repository http://nl.alpinelinux.org/alpine/edge/testing --allow-untrusted
+RUN apk add net-snmp-tools
 
-# Create project folder in Docker image:
-RUN mkdir -p /proj/cs7012
-RUN cd /proj/cs7012
-WORKDIR /proj/cs7012
+RUN mkdir -p /proj_test
+RUN cd /proj_test
+WORKDIR /proj_test
 
 # Add 'src' to the Docker image project folder:
-ADD src /proj/cs7012/src
 
 # Add remaining contents to the Docker image project folder:
-ADD . /proj/cs7012
+ADD . /proj_test
 
 #RUN pip3 install --no-cache-dir -r /proj/cs7012/requirements.txt
 #EXPOSE 8080
+EXPOSE 161
+EXPOSE 162
 
-CMD python "src/cs7012.py"
+#CMD python "p_test/test1.py"
+CMD sh "p_test/start.sh"
+
+#RUN cd /usr/lib/python2.7/site-packages/pysnmp
+#RUN ls
