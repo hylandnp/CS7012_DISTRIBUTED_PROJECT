@@ -40,7 +40,8 @@ http://www.it-slav.net/blogs/2009/02/05/install-and-configure-snmp-on-ubuntu/ an
 ##Start
 
 Clone this Git repository into a folder and CD into it. <br> 
-Run `$ sudo python ./snmpTest.py` to check if SNMP runs in the Mininet VM.
+'$ chmod 777 snmpTest.py'
+Run `$ sudo ./snmpTest.py` to check if SNMP runs in the Mininet VM.
 
 ##Mininet Python API
 
