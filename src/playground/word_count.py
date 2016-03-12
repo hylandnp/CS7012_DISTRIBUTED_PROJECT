@@ -1,4 +1,4 @@
-from src.map_reduce import Mapper, Reducer, Shuffler
+from map_reduce import Mapper, Reducer, Shuffler
 from collections import defaultdict
 
 
