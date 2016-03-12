@@ -17,6 +17,8 @@ $ ifconfig eth1
 or <br> 
 `$ ssh -X mininet@192.168.56.101`
 
+The IP address is the lower bound IP address when setting up the virtual box host.
+
 password: mininet
 
 ## Setup Notes
