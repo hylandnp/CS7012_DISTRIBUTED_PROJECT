@@ -27,14 +27,8 @@ http://www.it-slav.net/blogs/2009/02/05/install-and-configure-snmp-on-ubuntu/ an
 
 ##Install Dependencies in Mininet VM:
 
-`$ sudo apt-get install python-pip` <br>
-`$ sudo apt-get install python-virtualenv` <br>
-`$ sudo apt-get install python-dev` <br>
-`$ virtualenv env` <br>
-`$ source env/bin/activate` <br>
-`$ sudo apt-get install snmpd` <br>
-`$ sudo pip install pysnmp` <br>
-`$ pip install -r requirements.txt` <br>
+`$ chmod +rx install.sh` <br>
+`$ ./install.sh` <br>
 
 
 ##Start
