@@ -21,53 +21,52 @@ SNMP_START_CMD = '/usr/sbin/snmpd -Lsd -Lf /dev/null -u snmp -I -smux -p /var/ru
 SNMP_WALK_CMD = 'snmpwalk -v 1 -c public -O e '
 SNMP_WALK_OUT = 'dump.out'
 COMMAND_BANNER = '\n\n*******************************************************************\n             MININET - SNMP WALK - DEMO APPLICATION                \n*******************************************************************\n\n'
-                  
 
 
-def simulateNetwork():
+def simulate_network():
 
-    net = Mininet( topo=None,
-                   build=False)
+    net = Mininet(topo=None, build=False)
 
-    info( '*** Adding controller\n' )
+    info('*** Adding controller\n')
     net.addController(name='c0')
 
-    info( '*** Add switches\n')
+    info('*** Add switches\n')
     s1 = net.addSwitch('s1')
 
-    info( '*** Add host 1\n')
+    info('*** Add host 1\n')
     h1 = net.addHost('h1')
     
-    info( '*** Add host 2\n')
+    info('*** Add host 2\n')
     h2 = net.addHost('h2')
 
-    info( '*** Add links\n')
+    info('*** Add links\n')
     net.addLink(h1, s1)
     net.addLink(h2, s1)
 
-    info( '*** Starting network\n')
+    info('*** Starting network\n')
     net.start()
 
-    h1IP = h1.IP()
+    h1_ip = h1.IP()
     
-    info( '*** Starting SNMP agent in h1\n')
+    info('*** Starting SNMP agent in h1\n')
     h1.cmd(SNMP_START_CMD)
 
-    info ('\n\n SNMPd started successfuly\n\n')
+    info('\n\n SNMPd started successfully\n\n')
 
-    info( '*** Performing SNMP walk from h2 to h1\n')
-    h2.cmd(SNMP_WALK_CMD+h1IP+'>>'+SNMP_WALK_OUT)
+    info('*** Performing SNMP walk from h2 to h1\n')
+    h2.cmd(SNMP_WALK_CMD + h1_ip + '>>' + SNMP_WALK_OUT)
 
-    info ('\n SNMP walk completed succeessfully\n')
+    info('\n SNMP walk completed succeessfully\n')
 
-    info( '*** Showing first 10 entries of the walked data\n\n')
-    walkOut = h2.cmd('head -10 '+SNMP_WALK_OUT)
-    info('\n'+walkOut+'\n')
+    info('*** Showing first 10 entries of the walked data\n\n')
+    walk_out = h2.cmd('head -10 ' + SNMP_WALK_OUT)
+    info('\n' + walk_out + '\n')
     CLI(net)
     net.stop()
 
 if __name__ == '__main__':
-    setLogLevel( 'info' )
+    setLogLevel('info')
     info(COMMAND_BANNER)
-    info( '\tThis script will host a simple network of 2 hosts connected to single switch, \n\trun SNMP agent in h1 and perform SNMP walk in h2\n\n')
-    simulateNetwork()
+    info('\tThis script will host a simple network of 2 hosts connected to single switch, '
+         '\n\trun SNMP agent in h1 and perform SNMP walk in h2\n\n')
+    simulate_network()
