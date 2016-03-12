@@ -63,6 +63,7 @@ def simulateNetwork():
     info( '*** Showing first 10 entries of the walked data\n\n')
     walkOut = h2.cmd('head -10 '+SNMP_WALK_OUT)
     info('\n'+walkOut+'\n')
+    CLI(net)
     net.stop()
 
 if __name__ == '__main__':
