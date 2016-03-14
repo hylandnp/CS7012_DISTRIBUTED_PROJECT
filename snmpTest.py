@@ -17,7 +17,8 @@ from mininet.link import Intf
 from mininet.log import setLogLevel, info
 
 # Setting global data
-SNMP_START_CMD = '/usr/sbin/snmpd -Lsd -Lf /dev/null -u snmp -I -smux -p /var/run/snmpd.pid -c /etc/snmp/snmpd.conf'
+# SNMP_START_CMD = '/usr/sbin/snmpd -Lsd -Lf /dev/null -u snmp -I -smux -p /var/run/snmpd.pid -c /etc/snmp/snmpd.conf'
+SNMP_START_CMD = '/etc/init.d/snmpd restart'
 SNMP_WALK_CMD = 'snmpwalk -v 1 -c public -O e '
 SNMP_WALK_OUT = 'dump.out'
 COMMAND_BANNER = '\n\n*******************************************************************\n             MININET - SNMP WALK - DEMO APPLICATION                \n*******************************************************************\n\n'

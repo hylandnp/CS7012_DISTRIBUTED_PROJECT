@@ -40,3 +40,24 @@ Run `$ sudo ./snmpTest.py` to check if SNMP runs in the Mininet VM.
 ##Mininet Python API
 
 https://github.com/mininet/mininet/wiki/Introduction-to-Mininet
+
+##Config SNMPd
+Reference: http://www.it-slav.net/blogs/2009/02/05/install-and-configure-snmp-on-ubuntu/  
+  
+mv /etc/snmp/snmpd.conf  /etc/snmp/snmpd.conf.org  
+  
+Create a new /etc/snmp/snmpd.conf file:  
+rocommunity  public  
+syslocation  "TCD"
+syscontact  test@test.ie  
+  
+Edit /etc/default/snmpd:   
+
+Change from:
+># snmpd options (use syslog, close stdin/out/err).
+>SNMPDOPTS='-Lsd -Lf /dev/null -u snmp -I -smux -p /var/run/snmpd.pid 127.0.0.1'  
+To:
+># snmpd options (use syslog, close stdin/out/err).
+>#SNMPDOPTS='-Lsd -Lf /dev/null -u snmp -I -smux -p /var/run/snmpd.pid 127.0.0.1'
+>SNMPDOPTS='-Lsd -Lf /dev/null -u snmp -I -smux -p /var/run/snmpd.pid -c /etc/snmp/snmpd.conf'
+
