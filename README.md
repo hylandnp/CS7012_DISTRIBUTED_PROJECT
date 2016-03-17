@@ -41,6 +41,10 @@ Run `$ sudo ./snmpTest.py` to check if SNMP runs in the Mininet VM.
 
 https://github.com/mininet/mininet/wiki/Introduction-to-Mininet
 
+##Aditional Dependencies
+[Twisted](http://pysnmp.sourceforge.net/examples/hlapi/twisted/contents.html) <br>
+The twistedMaster.py is just a test script, wont work if you are on the College Network.
+
 ##Config SNMPd
 Reference: http://www.it-slav.net/blogs/2009/02/05/install-and-configure-snmp-on-ubuntu/  
   
