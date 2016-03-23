@@ -3,26 +3,33 @@
 Managing MapReduce with SNMP.
 
 Currently using Python 2.7 with PySNMP library & Mininet for managing virtual instances.
+## Start
+
+Clone this Git repository in mininet VM and CD into it. <br>
+
 ## Install Dependencies in Mininet VM:
 
 + `$ chmod +rx install.sh` <br>
 + `$ ./install.sh` <br>
 
-## Start
 
-Clone this Git repository into a folder and CD into it. <br>
+### Run the Setup
 
-### Steps
-1. #### Start SNMP Agent
+1. #### Start Mininet topology
+`$ sudo ./bigdataSNMP.py`
+
+2. #### Launch xterms of Hosts
+`mininet> xterm h1 h4
+`
+2. #### Start SNMP Agent on h1 xterm
 `$ python agent.py` <br>
 Runs a `UDP server` on port `1161` to accept incoming connections, has
 `OIB that runs MapReduce`
 
-2. #### Start SNMP Manager
+3. #### Start SNMP Manager on h4 xterm
 `$ python manager.py` <br>
 
-Note- Executes the OIB `SysDesr class` in agent which does word count, hasn't been
-configured to run on Mininet Hosts yet.<br>
+Note- Executes the OIB `SysDesr class` in agent which does word count
 
 ### Setup Mininet
 http://www.brianlinkletter.com/set-up-mininet/
