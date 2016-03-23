@@ -19,22 +19,12 @@ def failure(errorIndication, hostname):
 def getSysDescr(reactor, hostname):
     d = getCmd(SnmpEngine(),
                CommunityData('public', mpModel=0),
-               UdpTransportTarget((hostname, 161)),
+               UdpTransportTarget(('localhost', 1161)),
                ContextData(),
-               ObjectType(ObjectIdentity('SNMPv2-MIB', 'sysDescr', 0)))
+               ObjectType(ObjectIdentity('1.3.6.1.2.1.1.1.0')))
 
     d.addCallback(success, hostname).addErrback(failure, hostname)
 
     return d
 
-def getbulk(reactor, snmpEngine, varBinds):
-    d = bulkCmd(snmpEngine,
-                UsmUserData('usr-none-none'),
-                UdpTransportTarget(('demo.snmplabs.com', 161)),
-                ContextData(),
-                0, 50,
-                varBinds)
-    d.addCallback(success, reactor, snmpEngine).addErrback(failure)
-    return d
-
-react(getSysDescr, ['demo.snmplabs.com'])
+react(getSysDescr, ['localhost'])
