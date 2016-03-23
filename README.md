@@ -39,6 +39,7 @@ Run `$ sudo ./snmpTest.py` to check if SNMP runs in the Mininet VM.
 
 #### Start SNMP Agent
 `$ python agent.py` <br>
+`Runs a UDP server on port 1161 to accept incoming connections`
 
 #### Start SNMP Manager
 `$ python agent.py` <br>
@@ -49,7 +50,7 @@ https://github.com/mininet/mininet/wiki/Introduction-to-Mininet
 
 ##Aditional Dependencies
 [Twisted](http://pysnmp.sourceforge.net/examples/hlapi/twisted/contents.html) <br>
-The twistedMaster.py is just a test script, wont work if you are on the College Network.
+
 
 ##Config SNMPd
 Reference: http://www.it-slav.net/blogs/2009/02/05/install-and-configure-snmp-on-ubuntu/  
