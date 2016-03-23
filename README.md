@@ -3,54 +3,65 @@
 Managing MapReduce with SNMP.
 
 Currently using Python 2.7 with PySNMP library & Mininet for managing virtual instances.
+## Install Dependencies in Mininet VM:
 
-## Setup Mininet
++ `$ chmod +rx install.sh` <br>
++ `$ ./install.sh` <br>
+
+## Start
+
+Clone this Git repository into a folder and CD into it. <br>
+
+### Steps
+1. #### Start SNMP Agent
+`$ python agent.py` <br>
+Runs a `UDP server` on port `1161` to accept incoming connections, has
+`OIB that runs MapReduce`
+
+2. #### Start SNMP Manager
+`$ python manager.py` <br>
+
+Note- + Executes the OIB `SysDesr class` in agent which does word count, hasn't been
+configured to run on Mininet Hosts yet.<br>
+
+### Setup Mininet
 http://www.brianlinkletter.com/set-up-mininet/
 
-## Configure Mininet
-### In  Mininet vm
+### Configure Mininet
+1. ### In  Mininet vm
 $ sudo dhclient eth1
 $ ifconfig eth1
 
-### In Terminal
+2. ### In Terminal
 `$ ssh -Y mininet@192.168.56.101` <br>
-or <br> 
+or <br>
 `$ ssh -X mininet@192.168.56.101`
 
 The IP address is the lower bound IP address when setting up the virtual box host.
 
-password: mininet
 
-## Setup Notes
+### Setup Notes
 
 http://www.it-slav.net/blogs/2009/02/05/install-and-configure-snmp-on-ubuntu/ and https://kspviswa.wordpress.com/2015/06/20/how-to-run-snmp-agents-clients-inside-mininet-hosts/ to setup SNMPd with Mininet on the Mininet VM (see second link for VM downloads).
 
-##Install Dependencies in Mininet VM:
-
-`$ chmod +rx install.sh` <br>
-`$ ./install.sh` <br>
-
-
-##Start
-
-Clone this Git repository into a folder and CD into it. <br> 
-'$ chmod 777 snmpTest.py'
-Run `$ sudo ./snmpTest.py` to check if SNMP runs in the Mininet VM.
-
-##Mininet Python API
+### Mininet Python API
 
 https://github.com/mininet/mininet/wiki/Introduction-to-Mininet
 
-##Config SNMPd
+### Aditional Dependencies
+[Twisted](http://pysnmp.sourceforge.net/examples/hlapi/twisted/contents.html) <br>
+
+
+### Config SNMPd
 Reference: http://www.it-slav.net/blogs/2009/02/05/install-and-configure-snmp-on-ubuntu/  
-  
+
 mv /etc/snmp/snmpd.conf  /etc/snmp/snmpd.conf.org  
-  
+
 Create a new /etc/snmp/snmpd.conf file:  
 rocommunity  public  
 syslocation  "TCD"
 syscontact  test@test.ie  
-  
+
 Edit /etc/default/snmpd:   
 
 Change from:
