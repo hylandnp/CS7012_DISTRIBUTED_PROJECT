@@ -14,7 +14,7 @@ $ ifconfig eth1
 
 ### In Terminal
 `$ ssh -Y mininet@192.168.56.101` <br>
-or <br> 
+or <br>
 `$ ssh -X mininet@192.168.56.101`
 
 The IP address is the lower bound IP address when setting up the virtual box host.
@@ -25,32 +25,42 @@ password: mininet
 
 http://www.it-slav.net/blogs/2009/02/05/install-and-configure-snmp-on-ubuntu/ and https://kspviswa.wordpress.com/2015/06/20/how-to-run-snmp-agents-clients-inside-mininet-hosts/ to setup SNMPd with Mininet on the Mininet VM (see second link for VM downloads).
 
-##Install Dependencies in Mininet VM:
+## Install Dependencies in Mininet VM:
 
 `$ chmod +rx install.sh` <br>
 `$ ./install.sh` <br>
 
 
-##Start
+## Start
 
-Clone this Git repository into a folder and CD into it. <br> 
+Clone this Git repository into a folder and CD into it. <br>
 '$ chmod 777 snmpTest.py'
 Run `$ sudo ./snmpTest.py` to check if SNMP runs in the Mininet VM.
 
+#### Start SNMP Agent
+`$ python agent.py` <br>
+
+#### Start SNMP Manager
+`$ python agent.py` <br>
+`Note- Start these separetly, they haven't been configured to work with snmpTest.py yet`<br>
 ##Mininet Python API
 
 https://github.com/mininet/mininet/wiki/Introduction-to-Mininet
 
+##Aditional Dependencies
+[Twisted](http://pysnmp.sourceforge.net/examples/hlapi/twisted/contents.html) <br>
+The twistedMaster.py is just a test script, wont work if you are on the College Network.
+
 ##Config SNMPd
 Reference: http://www.it-slav.net/blogs/2009/02/05/install-and-configure-snmp-on-ubuntu/  
-  
+
 mv /etc/snmp/snmpd.conf  /etc/snmp/snmpd.conf.org  
-  
+
 Create a new /etc/snmp/snmpd.conf file:  
 rocommunity  public  
 syslocation  "TCD"
 syscontact  test@test.ie  
-  
+
 Edit /etc/default/snmpd:   
 
 Change from:
