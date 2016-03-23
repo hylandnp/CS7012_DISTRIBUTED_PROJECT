@@ -21,7 +21,7 @@ Runs a `UDP server` on port `1161` to accept incoming connections, has
 2. #### Start SNMP Manager
 `$ python manager.py` <br>
 
-Note- + Executes the OIB `SysDesr class` in agent which does word count, hasn't been
+Note- Executes the OIB `SysDesr class` in agent which does word count, hasn't been
 configured to run on Mininet Hosts yet.<br>
 
 ### Setup Mininet
@@ -29,8 +29,8 @@ http://www.brianlinkletter.com/set-up-mininet/
 
 ### Configure Mininet
 1. ### In  Mininet vm
-$ sudo dhclient eth1
-$ ifconfig eth1
+`$ sudo dhclient eth1`<br>
+`$ ifconfig eth1`
 
 2. ### In Terminal
 `$ ssh -Y mininet@192.168.56.101` <br>

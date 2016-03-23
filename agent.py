@@ -48,7 +48,9 @@ class SysDescr:
         return self.reducer.run()
 
 
-class Uptime:  # Returns the System Up time
+
+
+class Uptime:
     name = (1,3,6,1,2,1,1,3,0)
     birthday = time.time()
     def __eq__(self, other): return self.name == other
