@@ -42,7 +42,7 @@ Run `$ sudo ./snmpTest.py` to check if SNMP runs in the Mininet VM.
 `Runs a UDP server on port 1161 to accept incoming connections`
 
 #### Start SNMP Manager
-`$ python agent.py` <br>
+`$ python manager.py` <br>
 `Note- Start these separetly, they haven't been configured to work with snmpTest.py yet`<br>
 ##Mininet Python API
 
