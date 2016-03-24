@@ -19,7 +19,7 @@ def failure(errorIndication, hostname):
 def getSysDescr(reactor, hostname):
     d = getCmd(SnmpEngine(),
                CommunityData('public', mpModel=0),
-               UdpTransportTarget(('localhost', 1161)),
+               UdpTransportTarget(('10.0.0.1', 1161)),
                ContextData(),
                ObjectType(ObjectIdentity('1.3.6.1.2.1.1.1.0')))
 

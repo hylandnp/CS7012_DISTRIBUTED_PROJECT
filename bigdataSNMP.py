@@ -42,9 +42,15 @@ def myNetwork():
     net.get('s1').start([])
 
     info( '*** Post configure switches and hosts\n')
-
+    hosts = [h1, h2, h3, h4]
+    printInfo(hosts)
     CLI(net)
     net.stop()
+
+def printInfo(hosts):
+    for h in hosts:
+        print "Host", h.name, "has IP address", h.IP()
+    print "Run agent on host h1, master can be run anywhere"
 
 if __name__ == '__main__':
     setLogLevel( 'info' )
