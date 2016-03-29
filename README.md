@@ -78,3 +78,15 @@ To:
 `# snmpd options (use syslog, close stdin/out/err).
  #SNMPDOPTS='-Lsd -Lf /dev/null -u snmp -I -smux -p /var/run/snmpd.pid 127.0.0.1'
  SNMPDOPTS='-Lsd -Lf /dev/null -u snmp -I -smux -p /var/run/snmpd.pid -c /etc/snmp/snmpd.conf'`
+
+### Run the word count in a distributed way
+Run the bigdataSNMP.py to get 4 hosts. 
+Let h1 run `mapper_1.py`
+Let h2 run `mapper_2.py`
+Let h3 run `reducer.py`
+Let h4 run `manager.py`
+
+`manager.py` will read file of `test.txt`, and divide the file to two parts 
+and send them to h1 and h2. h1 and h2 will do the map function and the shuffler 
+function. Then h1 and h2 will send the result in JSON format to h3. 
+h3 works as a reducer and generate the final result, and save it to `result.txt`
