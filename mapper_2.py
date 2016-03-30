@@ -10,7 +10,7 @@ import word_count
 import thread
 import socket
 import json
-
+import re
 
 mapper_1 = "10.0.0.1"
 mapper_2 = "10.0.0.2"
@@ -153,14 +153,26 @@ transportDispatcher.registerTransport(
 #)
 IP = "10.0.0.2"
 port = 1162
-sock = socket.socket(socket.AF_INET,
-				socket.SOCK_DGRAM)
-sock.bind((IP, port))
 
 def listen_for_data():
+    sock = socket.socket(socket.AF_INET,
+					socket.SOCK_DGRAM)
+    sock.bind((IP, port))
     while 1:
-        data, addr = sock.recvfrom(102400)
-        mapper = Mapper(word_count.map_word, data.strip().split(" "))
+        data_recv = ""
+        data, addr = sock.recvfrom(8192)
+        try:
+            while(data):
+                data_recv = data_recv + data + "\n"
+                sock.settimeout(2)
+                data, addr = sock.recvfrom(8192)
+        except socket.timeout:
+            sock.close()
+            sock = socket.socket(socket.AF_INET,
+							socket.SOCK_DGRAM)
+            sock.bind((IP, port))
+            print "file transmition completed"
+        mapper = Mapper(word_count.map_word, re.split(" |\\n|\\t|\\r",data_recv.strip()))
         shuffler = Shuffler(word_count.group_by_word, mapper.run())
         result = shuffler.run()
         print result
@@ -169,8 +181,13 @@ def listen_for_data():
         reducer_port = 1162
         sock2 = socket.socket(socket.AF_INET,
 						socket.SOCK_DGRAM)
-        sock2.sendto(result_json,(reducer, reducer_port))
-
+        result_len = len(result_json)
+        buf = 4096
+        start = 0
+        while (start + buf) < result_len:
+            sock2.sendto(result_json[start:start+buf],(reducer, reducer_port))
+            start = start + buf
+        sock2.sendto(result_json[start:],(reducer, reducer_port))
 
 def listen_for_snmp():
     transportDispatcher.jobStarted(1)

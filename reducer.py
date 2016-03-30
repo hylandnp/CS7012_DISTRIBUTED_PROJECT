@@ -153,16 +153,34 @@ transportDispatcher.registerTransport(
 #)
 IP = "10.0.0.3"
 port = 1162
-sock = socket.socket(socket.AF_INET,
-				socket.SOCK_DGRAM)
-sock.bind((IP, port))
 
 def listen_for_data():
+    sock = socket.socket(socket.AF_INET,
+					socket.SOCK_DGRAM)
+    sock.bind((IP, port))
     while 1:
-        data1, addr = sock.recvfrom(102400)
-        data2, addr = sock.recvfrom(102400)
-        data1_dict = json.loads(data1)
-        data2_dict = json.loads(data2)
+        data1_recv = ""
+        data2_recv = ""
+        data, addr = sock.recvfrom(8192)
+        addr1 = addr
+        try:
+            while(data):
+                if addr == addr1:
+                    data1_recv = data1_recv + data
+                    print "get data from 1"
+                else:
+                    data2_recv = data2_recv + data
+                    print "get data from 2"
+                sock.settimeout(3)
+                data, addr = sock.recvfrom(8192)
+        except socket.timeout:
+            sock.close()
+            sock = socket.socket(socket.AF_INET,
+							socket.SOCK_DGRAM)
+            sock.bind((IP, port))
+            print "reducer got everything" 
+        data1_dict = json.loads(data1_recv)
+        data2_dict = json.loads(data2_recv)
         data_result = data1_dict.copy()
         for key in data2_dict.keys():
             if key in data_result:
@@ -171,11 +189,11 @@ def listen_for_data():
                 data_result[key] = data2_dict[key]
         reducer = Reducer(word_count.reduce_count, data_result.iteritems())
         result = reducer.run()
+        print result
         file_out = open("result.txt","w")
         for word in result:
             file_out.write(str(word) + "\n")
         file_out.close()
-        print result
 
 def listen_for_snmp():
     transportDispatcher.jobStarted(1)

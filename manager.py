@@ -30,9 +30,23 @@ def send_file(file1, file2):
     port = 1162
     sock = socket.socket(socket.AF_INET,
 					socket.SOCK_DGRAM)
-    sock.sendto(file1, (mapper_1, port))
-    sock.sendto(file2, (mapper_2, port))	
-    
+    len1 = len(file1)
+    len2 = len(file2)
+    print len1, len2
+    buf = 4096
+    start = 0
+    while ((start + buf) < len1):
+        sock.sendto(file1[start:start+buf],(mapper_1, port))
+        start = start + buf
+        print start, buf, len1
+        print (start + buf)<len1
+    sock.sendto(file1[start:],(mapper_1, port))
+    start = 0
+    while ((start + buf) < len2):
+        sock.sendto(file2[start:start+buf],(mapper_2, port))
+        start = start + buf
+    sock.sendto(file2[start:],(mapper_2, port))
+    sock.close()	
     
 
 def success((errorStatus, errorIndex, varBinds), hostname):
