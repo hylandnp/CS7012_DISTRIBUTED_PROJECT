@@ -26,38 +26,9 @@ class SysDescr:
     def __gt__(self, other): return self.name > other
     def __ge__(self, other): return self.name >= other
     def __call__(self, protoVer):
-        test = "it it it it ti ti ti ti"
-        ans = self.word_count(test.strip().split(" "))
-#    print(str(ans).strip('[]'))
         return api.protoModules[protoVer].OctetString(
             'Reducer, taking care of the reduce function'
             )
-    def group_by_word(self, words):
-        result = defaultdict(list)
-
-        for (word, c) in words:
-            result[word].append(c)
-
-        return result
-
-
-    def map_word(self, word):
-        return word, 1
-
-
-    def reduce_count(self, word, sequence):
-        return word, sum(sequence)
-
-
-    def word_count(self, document):
-        self.mapper = Mapper(self.map_word, document)
-        self.shuffler = Shuffler(self.group_by_word, self.mapper.run())
-        self.reducer = Reducer(self.reduce_count, self.shuffler.run().iteritems())
-
-        return self.reducer.run()
-
-
-
 
 class Uptime:
     name = (1,3,6,1,2,1,1,3,0)
