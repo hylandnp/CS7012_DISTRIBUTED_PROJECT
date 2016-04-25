@@ -2,6 +2,7 @@ from src.map_reduce import Mapper, Reducer, Shuffler
 from collections import defaultdict
 
 
+
 def group_by_word(words):
     result = defaultdict(list)
 

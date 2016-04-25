@@ -1,6 +1,8 @@
 from twisted.internet.task import react
 from pysnmp.hlapi.twisted import *
 import socket
+import threading
+
 
 mapper_1 = "10.0.0.1"
 mapper_2 = "10.0.0.2"
@@ -12,7 +14,6 @@ def file_processing():
     num_lines = sum(1 for line in file_in)
     file_in.close()
     file_in = open("test.txt","r")
-    print num_lines
     file1 = ""
     file2 = ""
     count = 0
@@ -32,14 +33,11 @@ def send_file(file1, file2):
 					socket.SOCK_DGRAM)
     len1 = len(file1)
     len2 = len(file2)
-    print len1, len2
     buf = 4096
     start = 0
     while ((start + buf) < len1):
         sock.sendto(file1[start:start+buf],(mapper_1, port))
         start = start + buf
-        print start, buf, len1
-        print (start + buf)<len1
     sock.sendto(file1[start:],(mapper_1, port))
     start = 0
     while ((start + buf) < len2):
@@ -49,33 +47,5 @@ def send_file(file1, file2):
     sock.close()	
     
 
-def success((errorStatus, errorIndex, varBinds), hostname):
-    if errorStatus:
-        print('%s: %s at %s' % (
-                hostname,
-                errorStatus.prettyPrint(),
-                errorIndex and varBinds[int(errorIndex)-1][0] or '?'
-            )
-        )
-    else:
-        for varBind in varBinds:
-            print(' = '.join([ x.prettyPrint() for x in varBind ]))
-
-def failure(errorIndication, hostname):
-    print('%s failure: %s' % (hostname, errorIndication))
-
-def getSysDescr(reactor, hostname):
-    d = getCmd(SnmpEngine(),
-               CommunityData('public', mpModel=0),
-               UdpTransportTarget(('10.0.0.1', 1161)),
-               ContextData(),
-               ObjectType(ObjectIdentity('1.3.6.1.2.1.1.1.0')))
-#ObjectType(ObjectIdentity('1.3.6.1.2.1.1.3.0')))
-
-    d.addCallback(success, hostname).addErrback(failure, hostname)
-
-    return d
-
 file1, file2 = file_processing()
 send_file(file1, file2)
-react(getSysDescr, ['10.0.0.1'])

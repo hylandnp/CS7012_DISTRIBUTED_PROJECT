@@ -55,6 +55,7 @@ def simulate_network():
     info('\n\n SNMPd started successfully\n\n')
 
     info('*** Performing SNMP walk from h2 to h1\n')
+    print SNMP_WALK_CMD + h1_ip + '>>' + SNMP_WALK_OUT
     h2.cmd(SNMP_WALK_CMD + h1_ip + '>>' + SNMP_WALK_OUT)
 
     info('\n SNMP walk completed succeessfully\n')

@@ -30,7 +30,7 @@ class SysDescr:
         ans = self.word_count(test.strip().split(" "))
 #    print(str(ans).strip('[]'))
         return api.protoModules[protoVer].OctetString(
-            'Job finished Captain'
+            'Reducer, taking care of the reduce function'
             )
     def group_by_word(self, words):
         result = defaultdict(list)

@@ -30,7 +30,7 @@ class SysDescr:
         ans = self.word_count(test.strip().split(" "))
 #    print(str(ans).strip('[]'))
         return api.protoModules[protoVer].OctetString(
-            'Job finished Captain'
+            'Mapper 1, taking care of mapping and shuffling functions'
             )
     def group_by_word(self, words):
         result = defaultdict(list)
@@ -202,8 +202,10 @@ def listen_for_snmp():
 
 
 try:
-	thread.start_new_thread(listen_for_data,())
-	thread.start_new_thread(listen_for_snmp,())
+    thread.start_new_thread(listen_for_data,())
+# threading.Thread(target = listen_for_data, args=()).start()
+    thread.start_new_thread(listen_for_snmp,())
+#    threading.Thread(target=listen_for_snmp, args=()).start()
 except:
     raise
     print "Error to start thread"

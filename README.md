@@ -3,6 +3,21 @@
 Managing MapReduce with SNMP.
 
 Currently using Python 2.7 with PySNMP library & Mininet for managing virtual instances.
+### Setup Mininet
+http://www.brianlinkletter.com/set-up-mininet/
+
+### Configure Mininet
+1. ### In  Mininet vm
+`$ sudo dhclient eth1`<br>
+`$ ifconfig eth1`
+
+2. ### In Terminal
+`$ ssh -Y mininet@192.168.56.101` <br>
+or <br>
+`$ ssh -X mininet@192.168.56.101`
+
+The IP address is the lower bound IP address when setting up the virtual box host.
+
 ## Start
 
 Clone this Git repository in mininet VM and CD into it. <br>
@@ -19,37 +34,34 @@ Clone this Git repository in mininet VM and CD into it. <br>
 `$ sudo ./bigdataSNMP.py`
 
 2. #### Launch xterms of Hosts
-`mininet> xterm h1 h4
+`mininet> xterm h1 h2 h3 h4
 `
-2. #### Start SNMP Agent on h1 xterm
+3. #### Start SNMP Mapper 1 Agent on h1 xterm
 `$ python agent.py` <br>
 Runs a `UDP server` on port `1161` to accept incoming connections, has
 `OIB that runs MapReduce`
 
-3. #### Start SNMP Manager on h4 xterm
-`$ python manager.py` <br>
+4. #### Start SNMP Mapper 2 Agent on h2 xterm
+`$ python agent.py` <br>
 
-Note- Executes the OIB `SysDesr class` in agent which does word count
+5. #### Start SNMP Reducer Agent on h3 xterm
+`$ python agent.py` <br>
 
-### Setup Mininet
-http://www.brianlinkletter.com/set-up-mininet/
+6. #### Start SNMP Manager on h4 xterm
+`$ sh manager_run.sh` <br>
 
-### Configure Mininet
-1. ### In  Mininet vm
-`$ sudo dhclient eth1`<br>
-`$ ifconfig eth1`
+7. #### Moniter the Performance of mapper 1 system information on h4 xterm 
+`$ sh manager_mapper1.sh` <br>
 
-2. ### In Terminal
-`$ ssh -Y mininet@192.168.56.101` <br>
-or <br>
-`$ ssh -X mininet@192.168.56.101`
-
-The IP address is the lower bound IP address when setting up the virtual box host.
+8. #### Moniter the self defined information of mapper 1 on h4 xterm 
+`$ sh manager_selfdefined.sh` <br> 
 
 
-### Setup Notes
-
-http://www.it-slav.net/blogs/2009/02/05/install-and-configure-snmp-on-ubuntu/ and https://kspviswa.wordpress.com/2015/06/20/how-to-run-snmp-agents-clients-inside-mininet-hosts/ to setup SNMPd with Mininet on the Mininet VM (see second link for VM downloads).
+Note- Executes the OIB `SysDesr class` in agent which does word count. <br>
+`manager.py` reads the file `test.txt`, and divides the file into two parts. <br>
+It subsequently sends the files to h1 and h2. h1 and h2 will perform the map function and the shuffler <br>
+function. Then h1 and h2 send the result in JSON format to h3. <br>
+h3 works as a reducer and generates the final result, and saves it to `result.txt`.
 
 ### Mininet Python API
 
@@ -79,14 +91,5 @@ To:
  #SNMPDOPTS='-Lsd -Lf /dev/null -u snmp -I -smux -p /var/run/snmpd.pid 127.0.0.1'
  SNMPDOPTS='-Lsd -Lf /dev/null -u snmp -I -smux -p /var/run/snmpd.pid -c /etc/snmp/snmpd.conf'`
 
-### Run the word count in a distributed way
-Run the bigdataSNMP.py to get 4 hosts. 
-Let h1 run `mapper_1.py`
-Let h2 run `mapper_2.py`
-Let h3 run `reducer.py`
-Let h4 run `manager.py`
 
-`manager.py` will read file of `test.txt`, and divide the file to two parts 
-and send them to h1 and h2. h1 and h2 will do the map function and the shuffler 
-function. Then h1 and h2 will send the result in JSON format to h3. 
-h3 works as a reducer and generate the final result, and save it to `result.txt`
+

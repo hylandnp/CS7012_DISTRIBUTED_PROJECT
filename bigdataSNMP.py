@@ -10,6 +10,10 @@ from mininet.log import setLogLevel, info
 from mininet.link import TCLink, Intf
 from subprocess import call
 
+SNMP_START_CMD = '/etc/init.d/snmpd restart'
+SNMP_WALK_CMD = 'snmpwalk -v 1 -c public -O e '
+SNMP_WALK_OUT = "hopt.out"
+
 def myNetwork():
 
     net = Mininet( topo=None,
@@ -25,7 +29,6 @@ def myNetwork():
     h4 = net.addHost('h4', cls=Host, ip='10.0.0.4', defaultRoute=None)
     h1 = net.addHost('h1', cls=Host, ip='10.0.0.1', defaultRoute=None)
     h2 = net.addHost('h2', cls=Host, ip='10.0.0.2', defaultRoute=None)
-
     info( '*** Add links\n')
     net.addLink(s1, h4)
     net.addLink(h1, s1)
@@ -37,13 +40,13 @@ def myNetwork():
     info( '*** Starting controllers\n')
     for controller in net.controllers:
         controller.start()
-
     info( '*** Starting switches\n')
     net.get('s1').start([])
 
     info( '*** Post configure switches and hosts\n')
     hosts = [h1, h2, h3, h4]
     printInfo(hosts)
+    h1.cmd(SNMP_START_CMD)
     CLI(net)
     net.stop()
 
