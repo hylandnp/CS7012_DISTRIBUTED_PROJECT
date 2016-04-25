@@ -38,8 +38,7 @@ Clone this Git repository in mininet VM and CD into it. <br>
 `
 3. #### Start SNMP Mapper 1 Agent on h1 xterm
 `$ python agent.py` <br>
-Runs a `UDP server` on port `1161` to accept incoming connections, has
-`OIB that runs MapReduce`
+Runs a `UDP server` on port `1161` to accept incoming connections, has 2 threads running, one for SNMP get requests, one for MapReduce application requests.
 
 4. #### Start SNMP Mapper 2 Agent on h2 xterm
 `$ python agent.py` <br>
@@ -57,8 +56,7 @@ Runs a `UDP server` on port `1161` to accept incoming connections, has
 `$ sh manager_selfdefined.sh` <br> 
 
 
-Note- Executes the OIB `SysDesr class` in agent which does word count. <br>
-`manager.py` reads the file `test.txt`, and divides the file into two parts. <br>
+Note- `manager.py` reads the file `test.txt`, and divides the file into two parts. <br>
 It subsequently sends the files to h1 and h2. h1 and h2 will perform the map function and the shuffler <br>
 function. Then h1 and h2 send the result in JSON format to h3. <br>
 h3 works as a reducer and generates the final result, and saves it to `result.txt`.
